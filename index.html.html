@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jullian | 23rd Birthday Celebration - Emerald Legacy</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            glow: '#00ff87',
+                            bright: '#00dfa2',
+                            deep: '#032b1d',
+                            dark: '#01160e',
+                            gold: '#dfb15b'
+                        }
+                    },
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glow-bounce': 'glowBounce 2s infinite alternate',
+                        'spin-slow': 'spin 15s linear infinite',
+                    },
+                    keyframes: {
+                        glowBounce: {
+                            '0%': { filter: 'drop-shadow(0 0 5px rgba(0,255,135,0.4))' },
+                            '100%': { filter: 'drop-shadow(0 0 20px rgba(0,255,135,0.9))' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #020b08;
+            color: #e2e8f0;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #01160e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #008f58;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00ff87;
+        }
+
+        /* Glassmorphism Styles */
+        .glass-panel {
+            background: rgba(3, 30, 20, 0.55);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 255, 135, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-panel-gold {
+            background: rgba(20, 18, 10, 0.65);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(223, 177, 91, 0.25);
+        }
+
+        .glow-text {
+            text-shadow: 0 0 10px rgba(0, 255, 135, 0.6), 0 0 20px rgba(0, 255, 135, 0.3);
+        }
+
+        .glow-text-gold {
+            text-shadow: 0 0 10px rgba(223, 177, 91, 0.6), 0 0 20px rgba(223, 177, 91, 0.3);
+        }
+
+        .glow-border {
+            box-shadow: 0 0 15px rgba(0, 255, 135, 0.3);
+        }
+
+        .glow-border:hover {
+            box-shadow: 0 0 25px rgba(0, 255, 135, 0.7);
+        }
+
+        /* Ring Emblem SVG Styling */
+        .ring-symbol {
+            filter: drop-shadow(0 0 12px #00ff87);
+        }
+
+        canvas#particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .content-wrap {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Modal styling */
+        .modal-active {
+            display: flex !important;
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-emerald-500 selection:text-black">
+
+    <!-- Particle Background Canvas -->
+    <canvas id="particleCanvas"></canvas>
+
+    <div class="content-wrap">
+        <!-- Floating Navigation Header -->
+        <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 px-4 sm:px-8" id="navbar">
+            <div class="max-w-7xl mx-auto glass-panel rounded-full px-6 py-3 flex items-center justify-between">
+                <!-- Brand / Logo -->
+                <a href="#hero" class="flex items-center space-x-3 group">
+                    <div class="w-9 h-9 rounded-full bg-emerald-950 border border-emerald-400/50 flex items-center justify-center group-hover:border-emerald-300 transition">
+                        <svg class="w-5 h-5 text-emerald-400 ring-symbol group-hover:scale-110 transition-transform" viewBox="0 0 100 100" fill="currentColor">
+                            <circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width="8" fill="none"/>
+                            <rect x="20" y="32" width="60" height="8" rx="4"/>
+                            <rect x="20" y="60" width="60" height="8" rx="4"/>
+                            <circle cx="50" cy="50" r="16" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <span class="font-cinzel text-lg font-bold tracking-widest text-emerald-300 group-hover:text-emerald-200">JULLIAN <span class="text-xs text-emerald-500 font-sans tracking-normal block -mt-1">EST. 2003</span></span>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wider">
+                    <a href="#hero" class="hover:text-emerald-400 transition hover:glow-text py-1 border-b-2 border-transparent hover:border-emerald-400">HOME</a>
+                    <a href="#about" class="hover:text-emerald-400 transition hover:glow-text py-1 border-b-2 border-transparent hover:border-emerald-400">THE CELEBRANT</a>
+                    <a href="#gallery" class="hover:text-emerald-400 transition hover:glow-text py-1 border-b-2 border-transparent hover:border-emerald-400">MEMORIES</a>
+                    <a href="#event" class="hover:text-emerald-400 transition hover:glow-text py-1 border-b-2 border-transparent hover:border-emerald-400">DETAILS</a>
+                    <a href="#guestbook" class="hover:text-emerald-400 transition hover:glow-text py-1 border-b-2 border-transparent hover:border-emerald-400">WISHES</a>
+                </nav>
+
+                <!-- Right Action Buttons -->
+                <div class="flex items-center space-x-3">
+                    <!-- Music Audio Toggle Button -->
+                    <button id="musicToggleBtn" onclick="toggleAudio()" title="Toggle Ambient Energy Vibe" class="p-2.5 rounded-full bg-emerald-950/80 text-emerald-400 border border-emerald-500/30 hover:border-emerald-400 hover:text-emerald-300 transition hover:shadow-[0_0_12px_rgba(0,255,135,0.4)]">
+                        <i class="fas fa-music text-sm" id="musicIcon"></i>
+                    </button>
+
+                    <!-- RSVP Button -->
+                    <a href="#rsvp" class="hidden sm:inline-block px-5 py-2 rounded-full bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-400 text-black font-semibold text-xs tracking-widest uppercase hover:brightness-110 transition shadow-[0_0_15px_rgba(0,255,135,0.5)]">
+                        RSVP NOW
+                    </a>
+
+                    <!-- Mobile Menu Button -->
+                    <button class="md:hidden text-emerald-400 p-2 focus:outline-none" id="mobileMenuBtn" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Dropdown Menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-3 max-w-7xl mx-auto glass-panel rounded-2xl p-6 transition-all duration-300">
+                <div class="flex flex-col space-y-4 font-medium tracking-wide">
+                    <a href="#hero" onclick="toggleMobileMenu()" class="hover:text-emerald-400 py-1">HOME</a>
+                    <a href="#about" onclick="toggleMobileMenu()" class="hover:text-emerald-400 py-1">THE CELEBRANT</a>
+                    <a href="#gallery" onclick="toggleMobileMenu()" class="hover:text-emerald-400 py-1">MEMORIES</a>
+                    <a href="#event" onclick="toggleMobileMenu()" class="hover:text-emerald-400 py-1">EVENT DETAILS</a>
+                    <a href="#guestbook" onclick="toggleMobileMenu()" class="hover:text-emerald-400 py-1">GUESTBOOK</a>
+                    <a href="#rsvp" onclick="toggleMobileMenu()" class="inline-block text-center py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-400 text-black font-bold text-xs tracking-widest uppercase">
+                        RSVP NOW
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- HERO SECTION -->
+        <section id="hero" class="min-h-screen flex items-center justify-center relative pt-24 pb-12 px-4 overflow-hidden">
+            <div class="max-w-4xl mx-auto text-center space-y-8 relative z-10">
+                
+                <!-- Green Lantern Ring Icon Badge -->
+                <div class="inline-block relative">
+                    <div class="w-24 h-24 sm:w-32 sm:h-32 mx-auto rounded-full bg-emerald-950/60 border-2 border-emerald-400/80 flex items-center justify-center animate-pulse-slow shadow-[0_0_35px_rgba(0,255,135,0.4)]">
+                        <svg class="w-16 h-16 sm:w-20 sm:h-20 text-emerald-400 ring-symbol animate-glow-bounce" viewBox="0 0 100 100" fill="currentColor">
+                            <circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width="7" fill="none"/>
+                            <rect x="20" y="32" width="60" height="8" rx="4"/>
+                            <rect x="20" y="60" width="60" height="8" rx="4"/>
+                            <circle cx="50" cy="50" r="16" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-black border border-emerald-400/60 px-4 py-0.5 rounded-full text-[10px] font-bold text-emerald-300 tracking-widest uppercase">
+                        WILLPOWER & HONOR
+                    </span>
+                </div>
+
+                <!-- Subtitle -->
+                <div class="space-y-2">
+                    <p class="text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase text-emerald-400">
+                        IN BRIGHTEST DAY, IN BLACKEST NIGHT
+                    </p>
+                    <h1 class="font-cinzel text-4xl sm:text-6xl md:text-7xl font-extrabold text-white tracking-wide glow-text">
+                        JULLIAN
+                    </h1>
+                    <p class="font-cinzel text-xl sm:text-3xl text-emerald-glow tracking-wider font-semibold">
+                        A DECADE & THIRTEEN <span class="text-emerald-gold font-normal">| 23 YEARS</span>
+                    </p>
+                </div>
+
+                <!-- Oath Quote Box -->
+                <div class="max-w-2xl mx-auto glass-panel p-5 rounded-2xl border-emerald-500/20 italic text-sm sm:text-base text-emerald-100/90 leading-relaxed">
+                    "No evil shall escape my sight. Let those who worship evil's might, beware my power..."
+                    <span class="block mt-2 font-normal font-cinzel not-italic text-emerald-400 text-xs tracking-widest">
+                        – CELEBRATING 23 YEARS OF UNBEATABLE VIBES & MEMORIES
+                    </span>
+                </div>
+
+                <!-- Countdown Timer -->
+                <div class="pt-4">
+                    <h3 class="text-xs font-bold tracking-[0.25em] text-emerald-400 uppercase mb-4">
+                        THE EMERALD GATHERING BEGINS IN
+                    </h3>
+                    <div class="grid grid-cols-4 gap-2 sm:gap-4 max-w-xl mx-auto">
+                        <div class="glass-panel p-3 sm:p-4 rounded-xl border-emerald-500/30 text-center">
+                            <span id="cd-days" class="font-cinzel text-2xl sm:text-4xl font-bold text-emerald-300 block">00</span>
+                            <span class="text-[10px] sm:text-xs text-gray-400 uppercase tracking-widest">Days</span>
+                        </div>
+                        <div class="glass-panel p-3 sm:p-4 rounded-xl border-emerald-500/30 text-center">
+                            <span id="cd-hours" class="font-cinzel text-2xl sm:text-4xl font-bold text-emerald-300 block">00</span>
+                            <span class="text-[10px] sm:text-xs text-gray-400 uppercase tracking-widest">Hours</span>
+                        </div>
+                        <div class="glass-panel p-3 sm:p-4 rounded-xl border-emerald-500/30 text-center">
+                            <span id="cd-minutes" class="font-cinzel text-2xl sm:text-4xl font-bold text-emerald-300 block">00</span>
+                            <span class="text-[10px] sm:text-xs text-gray-400 uppercase tracking-widest">Mins</span>
+                        </div>
+                        <div class="glass-panel p-3 sm:p-4 rounded-xl border-emerald-500/30 text-center">
+                            <span id="cd-seconds" class="font-cinzel text-2xl sm:text-4xl font-bold text-emerald-300 block">00</span>
+                            <span class="text-[10px] sm:text-xs text-gray-400 uppercase tracking-widest">Secs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Button Link -->
+                <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#event" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-gradient-to-r from-emerald-500 to-teal-400 text-black font-bold text-xs tracking-widest uppercase hover:brightness-110 transition shadow-[0_0_20px_rgba(0,255,135,0.6)]">
+                        <i class="fas fa-calendar-alt mr-2"></i> Event Invitation
+                    </a>
+                    <a href="#guestbook" class="w-full sm:w-auto px-8 py-3.5 rounded-full glass-panel border border-emerald-400/50 text-emerald-300 hover:text-white hover:border-emerald-300 font-bold text-xs tracking-widest uppercase transition">
+                        <i class="fas fa-comment-alt mr-2"></i> Leave a Wish
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ABOUT THE CELEBRANT SECTION -->
+        <section id="about" class="py-20 px-4 relative">
+            <div class="max-w-5xl mx-auto">
+                <div class="glass-panel rounded-3xl p-6 sm:p-12 border-emerald-500/20 relative overflow-hidden">
+                    <div class="absolute -top-24 -right-24 w-60 h-60 bg-emerald-500/10 rounded-full blur-3xl"></div>
+                    <div class="absolute -bottom-24 -left-24 w-60 h-60 bg-teal-500/10 rounded-full blur-3xl"></div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <!-- Portrait Mockup / Emblem Placeholder -->
+                        <div class="lg:col-span-5 flex justify-center">
+                            <div class="relative group">
+                                <div class="w-64 h-80 sm:w-72 sm:h-96 rounded-2xl overflow-hidden border-2 border-emerald-400/40 relative z-10 bg-emerald-950 flex flex-col items-center justify-center text-center p-6 shadow-[0_0_30px_rgba(0,255,135,0.2)]">
+                                    <div class="w-28 h-28 rounded-full bg-emerald-900/60 border border-emerald-400 flex items-center justify-center mb-4">
+                                        <i class="fas fa-shield-halved text-5xl text-emerald-400"></i>
+                                    </div>
+                                    <span class="font-cinzel text-xl font-bold text-white mb-1">JULLIAN</span>
+                                    <span class="text-xs text-emerald-400 font-semibold tracking-widest uppercase mb-3">Chapter 23</span>
+                                    <p class="text-xs text-emerald-200/80 italic">"Grounded by determination, empowered by friends, fueled by ambition."</p>
+                                </div>
+                                <div class="absolute inset-0 bg-emerald-400/20 rounded-2xl blur-lg group-hover:bg-emerald-400/40 transition"></div>
+                            </div>
+                        </div>
+
+                        <!-- Text Details -->
+                        <div class="lg:col-span-7 space-y-6">
+                            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-950 border border-emerald-500/40 text-emerald-400 text-xs font-semibold uppercase tracking-wider">
+                                <i class="fas fa-crown text-xs text-emerald-gold"></i>
+                                <span>The Celebrant Journey</span>
+                            </div>
+
+                            <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white leading-tight">
+                                A Legacy Built on Will, Heart & Character
+                            </h2>
+
+                            <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
+                                Reaching <strong>23 years of age</strong> (A Decade and Thirteen) is a milestone of purpose and growth. Inspired by the resilience and strength of the Emerald Guardian, Jullian continues to forge his path with unwavering energy, humor, and heart.
+                            </p>
+
+                            <!-- Stat / Trait Pill Grid -->
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
+                                <div class="glass-panel p-3 rounded-xl border-emerald-500/20 text-center">
+                                    <i class="fas fa-bolt text-emerald-400 text-lg mb-1"></i>
+                                    <span class="block font-cinzel font-bold text-white text-base">23 Years</span>
+                                    <span class="text-[10px] text-gray-400 uppercase">Milestone</span>
+                                </div>
+                                <div class="glass-panel p-3 rounded-xl border-emerald-500/20 text-center">
+                                    <i class="fas fa-ring text-emerald-400 text-lg mb-1"></i>
+                                    <span class="block font-cinzel font-bold text-white text-base">Sector 23</span>
+                                    <span class="text-[10px] text-gray-400 uppercase">Territory</span>
+                                </div>
+                                <div class="col-span-2 sm:col-span-1 glass-panel p-3 rounded-xl border-emerald-500/20 text-center">
+                                    <i class="fas fa-gem text-emerald-400 text-lg mb-1"></i>
+                                    <span class="block font-cinzel font-bold text-white text-base">Unlimited</span>
+                                    <span class="text-[10px] text-gray-400 uppercase">Willpower</span>
+                                </div>
+                            </div>
+
+                            <div class="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/30 text-xs text-emerald-200/90 flex items-start space-x-3">
+                                <i class="fas fa-quote-left text-emerald-400 text-base mt-0.5"></i>
+                                <span>"Join us as we raise a toast to Jullian's past achievements, present adventures, and the infinite possibilities ahead in his 23rd year."</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHOTO GALLERY / MEMORIES GRID -->
+        <section id="gallery" class="py-20 px-4 relative">
+            <div class="max-w-6xl mx-auto space-y-10">
+                <!-- Section Header -->
+                <div class="text-center space-y-3">
+                    <span class="text-xs font-bold tracking-[0.3em] uppercase text-emerald-400">OCEAN OF MEMORIES</span>
+                    <h2 class="font-cinzel text-3xl sm:text-5xl font-bold text-white glow-text">
+                        The Emerald Gallery
+                    </h2>
+                    <p class="text-sm text-gray-300 max-w-xl mx-auto">
+                        Snapshots of Jullian's epic journey through the years surrounded by those who matter most.
+                    </p>
+                </div>
+
+                <!-- Gallery Cards Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Gallery Item 1 -->
+                    <div onclick="openLightbox('Chapter 01: The Beginnings', 'Celebrating early achievements and foundational milestones.', 'fas-mountain')" class="group cursor-pointer glass-panel rounded-2xl overflow-hidden border border-emerald-500/30 hover:border-emerald-400 transition duration-300 glow-border">
+                        <div class="h-56 bg-emerald-950 relative flex items-center justify-center p-6 text-center">
+                            <div class="w-16 h-16 rounded-full bg-emerald-900/60 border border-emerald-400/60 flex items-center justify-center group-hover:scale-110 transition">
+                                <i class="fas fa-mountain text-3xl text-emerald-400"></i>
+                            </div>
+                            <span class="absolute top-3 right-3 text-[10px] font-bold bg-emerald-950/80 border border-emerald-400/50 px-2.5 py-1 rounded-full text-emerald-300 uppercase">EARLY DAYS</span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-cinzel font-bold text-white text-lg group-hover:text-emerald-300 transition">Chapter 01: The Foundations</h3>
+                            <p class="text-xs text-gray-400 mt-1">Growth, learning, and early adventures that paved the path to age 23.</p>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 2 -->
+                    <div onclick="openLightbox('Chapter 02: Brotherhood & Friends', 'Unforgettable memories created with lifelong brothers.', 'fas-users')" class="group cursor-pointer glass-panel rounded-2xl overflow-hidden border border-emerald-500/30 hover:border-emerald-400 transition duration-300 glow-border">
+                        <div class="h-56 bg-emerald-950 relative flex items-center justify-center p-6 text-center">
+                            <div class="w-16 h-16 rounded-full bg-emerald-900/60 border border-emerald-400/60 flex items-center justify-center group-hover:scale-110 transition">
+                                <i class="fas fa-users text-3xl text-emerald-400"></i>
+                            </div>
+                            <span class="absolute top-3 right-3 text-[10px] font-bold bg-emerald-950/80 border border-emerald-400/50 px-2.5 py-1 rounded-full text-emerald-300 uppercase">BROTHERHOOD</span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-cinzel font-bold text-white text-lg group-hover:text-emerald-300 transition">Chapter 02: The Squad</h3>
+                            <p class="text-xs text-gray-400 mt-1">Nights out, late-talks, and bonds forged in absolute loyalty.</p>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 3 -->
+                    <div onclick="openLightbox('Chapter 03: Victories & Milestones', 'Key personal victories and goals unlocked.', 'fas-trophy')" class="group cursor-pointer glass-panel rounded-2xl overflow-hidden border border-emerald-500/30 hover:border-emerald-400 transition duration-300 glow-border">
+                        <div class="h-56 bg-emerald-950 relative flex items-center justify-center p-6 text-center">
+                            <div class="w-16 h-16 rounded-full bg-emerald-900/60 border border-emerald-400/60 flex items-center justify-center group-hover:scale-110 transition">
+                                <i class="fas fa-trophy text-3xl text-emerald-gold"></i>
+                            </div>
+                            <span class="absolute top-3 right-3 text-[10px] font-bold bg-emerald-950/80 border border-emerald-400/50 px-2.5 py-1 rounded-full text-emerald-gold uppercase">VICTORIES</span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-cinzel font-bold text-white text-lg group-hover:text-emerald-300 transition">Chapter 03: Triumphs</h3>
+                            <p class="text-xs text-gray-400 mt-1">Hustle turned into success stories throughout his 20s.</p>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 4 -->
+                    <div onclick="openLightbox('Chapter 04: Wanderlust Adventures', 'Exploring new cities, sights, and horizons.', 'fas-compass')" class="group cursor-pointer glass-panel rounded-2xl overflow-hidden border border-emerald-500/30 hover:border-emerald-400 transition duration-300 glow-border">
+                        <div class="h-56 bg-emerald-950 relative flex items-center justify-center p-6 text-center">
+                            <div class="w-16 h-16 rounded-full bg-emerald-900/60 border border-emerald-400/60 flex items-center justify-center group-hover:scale-110 transition">
+                                <i class="fas fa-compass text-3xl text-emerald-400"></i>
+                            </div>
+                            <span class="absolute top-3 right-3 text-[10px] font-bold bg-emerald-950/80 border border-emerald-400/50 px-2.5 py-1 rounded-full text-emerald-300 uppercase">TRAVELS</span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-cinzel font-bold text-white text-lg group-hover:text-emerald-300 transition">Chapter 04: Journeys</h3>
+                            <p class="text-xs text-gray-400 mt-1">Roadtrips and horizons explored along the way.</p>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 5 -->
+                    <div onclick="openLightbox('Chapter 05: Passion & Hobbies', 'Dedication to games, fitness, and creativity.', 'fas-gamepad')" class="group cursor-pointer glass-panel rounded-2xl overflow-hidden border border-emerald-500/30 hover:border-emerald-400 transition duration-300 glow-border">
+                        <div class="h-56 bg-emerald-950 relative flex items-center justify-center p-6 text-center">
+                            <div class="w-16 h-16 rounded-full bg-emerald-900/60 border border-emerald-400/60 flex items-center justify-center group-hover:scale-110 transition">
+                                <i class="fas fa-gamepad text-3xl text-emerald-400"></i>
+                            </div>
+                            <span class="absolute top-3 right-3 text-[10px] font-bold bg-emerald-950/80 border border-emerald-400/50 px-2.5 py-1 rounded-full text-emerald-300 uppercase">PASSION</span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-cinzel font-bold text-white text-lg group-hover:text-emerald-300 transition">Chapter 05: The Sparks</h3>
+                            <p class="text-xs text-gray-400 mt-1">Hobbies and interests that fuel Jullian's creative drive.</p>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 6 -->
+                    <div onclick="openLightbox('Chapter 06: Turning 23', 'Stepping boldly into a new era with unmatched confidence.', 'fas-star')" class="group cursor-pointer glass-panel-gold rounded-2xl overflow-hidden hover:border-emerald-gold/60 transition duration-300">
+                        <div class="h-56 bg-gradient-to-b from-emerald-950 to-black relative flex items-center justify-center p-6 text-center">
+                            <div class="w-16 h-16 rounded-full bg-yellow-900/40 border border-emerald-gold/70 flex items-center justify-center group-hover:scale-110 transition">
+                                <i class="fas fa-star text-3xl text-emerald-gold"></i>
+                            </div>
+                            <span class="absolute top-3 right-3 text-[10px] font-bold bg-black/80 border border-emerald-gold px-2.5 py-1 rounded-full text-emerald-gold uppercase">NEW ERA</span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-cinzel font-bold text-emerald-gold text-lg">Chapter 06: Age 23</h3>
+                            <p class="text-xs text-gray-400 mt-1">The grand chapter begins now. Welcome to Sector 23!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lightbox Modal -->
+        <div id="lightboxModal" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-md items-center justify-center p-4">
+            <div class="glass-panel max-w-lg w-full rounded-3xl p-6 sm:p-8 border-emerald-400/50 text-center relative space-y-4">
+                <button onclick="closeLightbox()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-2">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+                <div class="w-20 h-20 mx-auto rounded-full bg-emerald-950 border border-emerald-400 flex items-center justify-center">
+                    <i id="lightboxIcon" class="fas fa-gem text-3xl text-emerald-400"></i>
+                </div>
+                <h3 id="lightboxTitle" class="font-cinzel text-2xl font-bold text-white">Chapter Title</h3>
+                <p id="lightboxDesc" class="text-sm text-emerald-100/80 leading-relaxed">Description goes here...</p>
+                <button onclick="closeLightbox()" class="px-6 py-2.5 rounded-full bg-emerald-500 text-black font-bold text-xs tracking-widest uppercase hover:brightness-110">
+                    CLOSE MEMORY
+                </button>
+            </div>
+        </div>
+
+        <!-- EVENT DETAILS & SCHEDULE -->
+        <section id="event" class="py-20 px-4 relative">
+            <div class="max-w-5xl mx-auto space-y-12">
+                <!-- Header -->
+                <div class="text-center space-y-3">
+                    <span class="text-xs font-bold tracking-[0.3em] uppercase text-emerald-400">THE CELEBRATION DETAILS</span>
+                    <h2 class="font-cinzel text-3xl sm:text-5xl font-bold text-white glow-text">
+                        Gathering of Guardians
+                    </h2>
+                    <p class="text-sm text-gray-300 max-w-lg mx-auto">
+                        Mark your calendars. Here is everything you need to know for Jullian's 23rd Birthday Celebration.
+                    </p>
+                </div>
+
+                <!-- Event Info Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Date & Time Card -->
+                    <div class="glass-panel p-6 rounded-2xl border-emerald-500/20 text-center space-y-3">
+                        <div class="w-12 h-12 mx-auto rounded-full bg-emerald-950 border border-emerald-400/50 flex items-center justify-center text-emerald-400">
+                            <i class="fas fa-clock text-xl"></i>
+                        </div>
+                        <h3 class="font-cinzel text-lg font-bold text-white">WHEN</h3>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            <strong class="text-emerald-300 block text-sm">Saturday Evening</strong>
+                            November 14, 2026<br>
+                            6:00 PM Onwards
+                        </p>
+                    </div>
+
+                    <!-- Location Card -->
+                    <div class="glass-panel p-6 rounded-2xl border-emerald-500/20 text-center space-y-3">
+                        <div class="w-12 h-12 mx-auto rounded-full bg-emerald-950 border border-emerald-400/50 flex items-center justify-center text-emerald-400">
+                            <i class="fas fa-map-marker-alt text-xl"></i>
+                        </div>
+                        <h3 class="font-cinzel text-lg font-bold text-white">WHERE</h3>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            <strong class="text-emerald-300 block text-sm">The Emerald Lounge & Grand Hall</strong>
+                            123 Guardian Way, Metro District<br>
+                            Pasay City, Philippines
+                        </p>
+                    </div>
+
+                    <!-- Dress Code Card -->
+                    <div class="glass-panel p-6 rounded-2xl border-emerald-500/20 text-center space-y-3">
+                        <div class="w-12 h-12 mx-auto rounded-full bg-emerald-950 border border-emerald-400/50 flex items-center justify-center text-emerald-400">
+                            <i class="fas fa-user-tie text-xl"></i>
+                        </div>
+                        <h3 class="font-cinzel text-lg font-bold text-white">DRESS CODE</h3>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            <strong class="text-emerald-300 block text-sm">Emerald & Black Elegance</strong>
+                            Semi-Formal / Chic Formal<br>
+                            <span class="text-emerald-gold font-semibold">Green Accents Encouraged</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Interactive Timeline / Itinerary -->
+                <div class="glass-panel rounded-3xl p-6 sm:p-10 border-emerald-500/20">
+                    <h3 class="font-cinzel text-2xl font-bold text-center text-white mb-8">
+                        <i class="fas fa-stream text-emerald-400 mr-2"></i> Event Timeline
+                    </h3>
+
+                    <div class="relative border-l-2 border-emerald-500/40 ml-4 sm:ml-32 space-y-8">
+                        <!-- Timeline item 1 -->
+                        <div class="relative pl-6 sm:pl-8">
+                            <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-emerald-400 border-2 border-black"></div>
+                            <span class="sm:absolute sm:-left-32 sm:top-0 font-cinzel text-xs font-bold text-emerald-400 block sm:inline mb-1 sm:mb-0">
+                                06:00 PM
+                            </span>
+                            <h4 class="font-bold text-white text-base">Arrival & Welcome Cocktails</h4>
+                            <p class="text-xs text-gray-300 mt-1">Registration, ambient soundscape, and guest photo sessions at the Emerald Backdrop.</p>
+                        </div>
+
+                        <!-- Timeline item 2 -->
+                        <div class="relative pl-6 sm:pl-8">
+                            <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-emerald-400 border-2 border-black"></div>
+                            <span class="sm:absolute sm:-left-32 sm:top-0 font-cinzel text-xs font-bold text-emerald-400 block sm:inline mb-1 sm:mb-0">
+                                07:00 PM
+                            </span>
+                            <h4 class="font-bold text-white text-base">Grand Entrance & Toast</h4>
+                            <p class="text-xs text-gray-300 mt-1">Welcoming Jullian, opening remarks, and celebratory emerald champagne toast.</p>
+                        </div>
+
+                        <!-- Timeline item 3 -->
+                        <div class="relative pl-6 sm:pl-8">
+                            <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-emerald-400 border-2 border-black"></div>
+                            <span class="sm:absolute sm:-left-32 sm:top-0 font-cinzel text-xs font-bold text-emerald-400 block sm:inline mb-1 sm:mb-0">
+                                07:30 PM
+                            </span>
+                            <h4 class="font-bold text-white text-base">Dinner & Tributes</h4>
+                            <p class="text-xs text-gray-300 mt-1">Gourmet dinner, video memory presentation, and special toasts from closest friends.</p>
+                        </div>
+
+                        <!-- Timeline item 4 -->
+                        <div class="relative pl-6 sm:pl-8">
+                            <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-emerald-400 border-2 border-black"></div>
+                            <span class="sm:absolute sm:-left-32 sm:top-0 font-cinzel text-xs font-bold text-emerald-400 block sm:inline mb-1 sm:mb-0">
+                                09:00 PM
+                            </span>
+                            <h4 class="font-bold text-white text-base">Cake Cutting & Party Phase</h4>
+                            <p class="text-xs text-gray-300 mt-1">The 23rd birthday oath, cake ceremony, DJ live sets, and dance party.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP FORM SECTION -->
+        <section id="rsvp" class="py-20 px-4 relative">
+            <div class="max-w-3xl mx-auto">
+                <div class="glass-panel-gold rounded-3xl p-6 sm:p-12 border-emerald-gold/40 relative">
+                    <div class="text-center space-y-3 mb-8">
+                        <span class="text-xs font-bold tracking-[0.3em] uppercase text-emerald-gold">JOIN THE SECTOR 23 CELEBRATION</span>
+                        <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white glow-text-gold">
+                            Confirm Your Attendance
+                        </h2>
+                        <p class="text-xs sm:text-sm text-gray-300">
+                            Please respond by November 1, 2026, to secure your spot at the event.
+                        </p>
+                    </div>
+
+                    <form id="rsvpForm" onsubmit="handleRSVP(event)" class="space-y-5">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-semibold text-emerald-200 uppercase tracking-wider mb-2">Full Name</label>
+                                <input type="text" required placeholder="e.g. Bruce Wayne" class="w-full bg-black/60 border border-emerald-500/40 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-400 transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-emerald-200 uppercase tracking-wider mb-2">Will You Attend?</label>
+                                <select required class="w-full bg-black/60 border border-emerald-500/40 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-400 transition">
+                                    <option value="yes">Yes! I'll be there to celebrate</option>
+                                    <option value="no">Regretfully decline</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-semibold text-emerald-200 uppercase tracking-wider mb-2">Number of Guests</label>
+                                <select class="w-full bg-black/60 border border-emerald-500/40 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-400 transition">
+                                    <option value="1">1 Person (Just me)</option>
+                                    <option value="2">2 Persons (+1 Guest)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-emerald-200 uppercase tracking-wider mb-2">Dietary Restrictions</label>
+                                <input type="text" placeholder="e.g. Vegetarian, Allergies, None" class="w-full bg-black/60 border border-emerald-500/40 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-400 transition">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-emerald-200 uppercase tracking-wider mb-2">Personal Birthday Wish for Jullian</label>
+                            <textarea id="rsvpMessage" rows="3" placeholder="Write your birthday oath or wish..." class="w-full bg-black/60 border border-emerald-500/40 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-400 transition"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-400 text-black font-bold text-sm tracking-widest uppercase hover:brightness-110 transition shadow-[0_0_25px_rgba(0,255,135,0.5)]">
+                            <i class="fas fa-paper-plane mr-2"></i> Submit RSVP Confirmation
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP SUCCESS MODAL -->
+        <div id="rsvpSuccessModal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md items-center justify-center p-4">
+            <div class="glass-panel max-w-md w-full rounded-3xl p-8 border-emerald-400 text-center space-y-4">
+                <div class="w-20 h-20 mx-auto rounded-full bg-emerald-950 border border-emerald-400 flex items-center justify-center text-emerald-400">
+                    <i class="fas fa-check-circle text-4xl"></i>
+                </div>
+                <h3 class="font-cinzel text-2xl font-bold text-white">RSVP Received!</h3>
+                <p class="text-xs text-emerald-100/80 leading-relaxed">
+                    Thank you! Your response has been registered. Get ready for an unforgettable emerald night celebrating Jullian's 23rd birthday!
+                </p>
+                <button onclick="closeRsvpModal()" class="px-8 py-3 rounded-full bg-emerald-500 text-black font-bold text-xs uppercase tracking-widest hover:brightness-110">
+                    GREAT!
+                </button>
+            </div>
+        </div>
+
+        <!-- WISHING WELL / MEMORY WALL -->
+        <section id="guestbook" class="py-20 px-4 relative">
+            <div class="max-w-5xl mx-auto space-y-10">
+                <!-- Header -->
+                <div class="text-center space-y-3">
+                    <span class="text-xs font-bold tracking-[0.3em] uppercase text-emerald-400">GUESTBOOK & MEMORIES</span>
+                    <h2 class="font-cinzel text-3xl sm:text-5xl font-bold text-white glow-text">
+                        The Guardian Oath Wall
+                    </h2>
+                    <p class="text-sm text-gray-300 max-w-md mx-auto">
+                        Leave a birthday message, advice, or favorite memory for Jullian as he turns 23.
+                    </p>
+                </div>
+
+                <!-- Message Posting Input -->
+                <div class="glass-panel max-w-2xl mx-auto rounded-2xl p-6 border-emerald-500/30 space-y-4">
+                    <h3 class="font-cinzel font-bold text-white text-base">Write on Jullian's Wall</h3>
+                    <div class="space-y-3">
+                        <input type="text" id="wallName" placeholder="Your Name / Alias" class="w-full bg-black/60 border border-emerald-500/40 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-400">
+                        <textarea id="wallMessage" rows="2" placeholder="Write your message or birthday greeting..." class="w-full bg-black/60 border border-emerald-500/40 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-400"></textarea>
+                        <button onclick="postWallMessage()" class="px-6 py-2.5 rounded-xl bg-emerald-500 text-black font-bold text-xs tracking-widest uppercase hover:brightness-110 transition">
+                            Post Wish <i class="fas fa-paper-plane ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Live Guestbook Messages Grid -->
+                <div id="messagesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <!-- Default Initial Wish Cards -->
+                    <div class="glass-panel p-5 rounded-2xl border-emerald-500/20 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="font-cinzel font-bold text-emerald-300 text-sm">Hal Jordan</span>
+                            <span class="text-[10px] text-gray-400">Just now</span>
+                        </div>
+                        <p class="text-xs text-gray-200 leading-relaxed italic">
+                            "Happy 23rd Birthday Jullian! Keep shining with that unbeatable willpower. Sector 23 is in great hands!"
+                        </p>
+                    </div>
+
+                    <div class="glass-panel p-5 rounded-2xl border-emerald-500/20 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="font-cinzel font-bold text-emerald-300 text-sm">Marcus & Squad</span>
+                            <span class="text-[10px] text-gray-400">1 hour ago</span>
+                        </div>
+                        <p class="text-xs text-gray-200 leading-relaxed italic">
+                            "Bro! 23 looks good on you. Can't wait to toast to more victories and legendary nights ahead!"
+                        </p>
+                    </div>
+
+                    <div class="glass-panel p-5 rounded-2xl border-emerald-500/20 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="font-cinzel font-bold text-emerald-300 text-sm">Elena S.</span>
+                            <span class="text-[10px] text-gray-400">3 hours ago</span>
+                        </div>
+                        <p class="text-xs text-gray-200 leading-relaxed italic">
+                            "Happy Birthday Jullian! May your 23rd year bring you endless success, happiness, and incredible journeys."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="py-12 px-4 border-t border-emerald-500/20 text-center space-y-4">
+            <div class="flex items-center justify-center space-x-2">
+                <div class="w-8 h-8 rounded-full bg-emerald-950 border border-emerald-400 flex items-center justify-center">
+                    <svg class="w-4 h-4 text-emerald-400 ring-symbol" viewBox="0 0 100 100" fill="currentColor">
+                        <circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width="8" fill="none"/>
+                        <rect x="20" y="32" width="60" height="8" rx="4"/>
+                        <rect x="20" y="60" width="60" height="8" rx="4"/>
+                        <circle cx="50" cy="50" r="16" fill="currentColor"/>
+                    </svg>
+                </div>
+                <span class="font-cinzel font-bold text-white text-base tracking-widest">JULLIAN @ 23</span>
+            </div>
+            <p class="text-xs text-gray-400">
+                A Decade & Thirteen | Green Lantern Inspired Event Celebration
+            </p>
+            <p class="text-[10px] text-emerald-500/70">
+                Designed for Jullian's 23rd Birthday Party Celebration
+            </p>
+        </footer>
+    </div>
+
+    <!-- JAVASCRIPT & INTERACTION LOGIC -->
+    <script>
+        // --- PARTICLE CANVAS BACKGROUND ---
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2.5 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.speedY = (Math.random() - 0.5) * 0.4 - 0.2;
+                this.alpha = Math.random() * 0.6 + 0.2;
+                this.color = Math.random() > 0.3 ? '#00ff87' : '#00dfa2';
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < 70; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // --- COUNTDOWN TIMER LOGIC ---
+        // Setting event date for 23rd birthday party
+        const targetDate = new Date();
+        targetDate.setDate(targetDate.getDate() + 25); // Set 25 days into future
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) return;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('cd-days').innerText = days < 10 ? '0' + days : days;
+            document.getElementById('cd-hours').innerText = hours < 10 ? '0' + hours : hours;
+            document.getElementById('cd-minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById('cd-seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // --- MOBILE MENU TOGGLE ---
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // --- LIGHTBOX GALLERY LOGIC ---
+        function openLightbox(title, desc, iconClass) {
+            document.getElementById('lightboxTitle').innerText = title;
+            document.getElementById('lightboxDesc').innerText = desc;
+            document.getElementById('lightboxIcon').className = `fas ${iconClass} text-3xl text-emerald-400`;
+            const modal = document.getElementById('lightboxModal');
+            modal.classList.add('modal-active');
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightboxModal');
+            modal.classList.remove('modal-active');
+        }
+
+        // --- RSVP FORM HANDLING ---
+        function handleRSVP(e) {
+            e.preventDefault();
+            const msg = document.getElementById('rsvpMessage').value;
+            if(msg.trim() !== '') {
+                // Post the RSVP message to wall
+                addWallMessage('RSVP Guest', msg);
+            }
+            document.getElementById('rsvpSuccessModal').classList.add('modal-active');
+            document.getElementById('rsvpForm').reset();
+        }
+
+        function closeRsvpModal() {
+            document.getElementById('rsvpSuccessModal').classList.remove('modal-active');
+        }
+
+        // --- MEMORY WALL GUESTBOOK ---
+        function postWallMessage() {
+            const nameInput = document.getElementById('wallName');
+            const msgInput = document.getElementById('wallMessage');
+
+            const name = nameInput.value.trim() || 'Anonymous Guardian';
+            const msg = msgInput.value.trim();
+
+            if (!msg) return;
+
+            addWallMessage(name, msg);
+            nameInput.value = '';
+            msgInput.value = '';
+        }
+
+        function addWallMessage(author, message) {
+            const grid = document.getElementById('messagesGrid');
+            const card = document.createElement('div');
+            card.className = 'glass-panel p-5 rounded-2xl border-emerald-400/40 space-y-2 animate-fadeIn';
+            card.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <span class="font-cinzel font-bold text-emerald-300 text-sm">${escapeHtml(author)}</span>
+                    <span class="text-[10px] text-emerald-400">Just now</span>
+                </div>
+                <p class="text-xs text-gray-200 leading-relaxed italic">
+                    "${escapeHtml(message)}"
+                </p>
+            `;
+            grid.prepend(card);
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        // --- SYNTHESIZED AMBIENT AUDIO PLAYER ---
+        let audioCtx = null;
+        let isPlaying = false;
+        let oscillator = null;
+        let gainNode = null;
+
+        function toggleAudio() {
+            const musicIcon = document.getElementById('musicIcon');
+            if (!isPlaying) {
+                startAmbientSound();
+                musicIcon.className = "fas fa-volume-high text-sm text-emerald-300 animate-pulse";
+                isPlaying = true;
+            } else {
+                stopAmbientSound();
+                musicIcon.className = "fas fa-music text-sm";
+                isPlaying = false;
+            }
+        }
+
+        function startAmbientSound() {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioContext();
+
+                oscillator = audioCtx.createOscillator();
+                gainNode = audioCtx.createGain();
+
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(146.83, audioCtx.currentTime); // D3 chord tone
+                
+                // Smooth fade in
+                gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+                gainNode.gain.linearRampToValueAtTime(0.08, audioCtx.currentTime + 2);
+
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                oscillator.start();
+            } catch(e) {
+                console.log('Audio playback not allowed or restricted by browser');
+            }
+        }
+
+        function stopAmbientSound() {
+            if (gainNode && audioCtx) {
+                gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.5);
+                setTimeout(() => {
+                    if (oscillator) oscillator.stop();
+                }, 500);
+            }
+        }
+    </script>
+</body>
+</html>
